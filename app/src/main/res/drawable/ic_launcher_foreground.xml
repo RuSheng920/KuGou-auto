@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    二改版「狗 + 耳机」图标，纯手写矢量，不是任何官方 logo 的复制。
+    108x108 视口，内容全部落在自适应图标的安全区（半径 33）内。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 耳朵（在头后面） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,47 C35,44 29,35 37,30 C45,26 48,36 48,43 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M63,47 C73,44 79,35 71,30 C63,26 60,36 60,43 Z" />
+
+    <!-- 耳机头梁 -->
+    <path
+        android:pathData="M33,54 C33,26 75,26 75,54"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="6" />
+
+    <!-- 头 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,58 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0 Z" />
+
+    <!-- 左右耳罩 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M25,52 a7,10 0 1,0 14,0 a7,10 0 1,0 -14,0 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M69,52 a7,10 0 1,0 14,0 a7,10 0 1,0 -14,0 Z" />
+
+    <!-- 眼睛 -->
+    <path
+        android:fillColor="#16308F"
+        android:pathData="M45,54 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+    <path
+        android:fillColor="#16308F"
+        android:pathData="M57,54 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z" />
+
+    <!-- 鼻子 -->
+    <path
+        android:fillColor="#16308F"
+        android:pathData="M50.8,64 a3.4,2.6 0 1,0 6.8,0 a3.4,2.6 0 1,0 -6.8,0 Z" />
+</vector>

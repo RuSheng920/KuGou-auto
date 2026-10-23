@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.moekoe.xposed.kugoulite'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.moekoe.xposed.kugoulite'
+        minSdk 27
+        targetSdk 34
+        versionCode 6
+        versionName '1.5.0'
+    }
+
+    signingConfigs {
+        // debug keystore（口令 android，业界公开的调试密钥，仅用于保持签名连续性）
+        release {
+            storeFile file('../keystore/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // Xposed 双格式声明文件必须原样进包：
+    //   assets/xposed_init              （旧版入口）
+    //   resources/META-INF/xposed/*     （现代入口三件套）
+    packagingOptions {
+        resources.pickFirsts.add("META-INF/xposed/**")
+    }
+}
+
+dependencies {
+    // libxposed API 102（现代入口 MainHook 编译期依赖，运行期由框架提供）
+    compileOnly files('libs/api-102.0.0.jar')
+    // 旧版 Xposed API 82（LegacyEntry 编译期依赖，运行期由旧框架提供）
+    compileOnly files('libs/api-82.jar')
+}

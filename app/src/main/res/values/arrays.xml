@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 旧版框架（只认 xposedscope meta-data）用的作用域声明 -->
+    <string-array name="xposed_scope">
+        <item>com.kugou.android.lite</item>
+    </string-array>
+</resources>

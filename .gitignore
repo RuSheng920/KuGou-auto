@@ -1,0 +1,28 @@
+# Gradle / Android Studio
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 构建产物（APK 由 gradle 产出，见 README 构建章节）
+*.apk
+*.idsig
+*.aab
+# 例外：dist/ 下随仓库发布的正式 APK 直接入库，方便下载安装
+!dist/*.apk
+
+# 工具目录里的编译器大件不入库，parity 对比工具保留
+tools/*.jar
+# parity 测试的编译产物
+tools/parity/out/
+
+# 系统杂项
+.DS_Store
+Thumbs.db
+
+# 交接/研究资料（不属于发布内容）
+handover/

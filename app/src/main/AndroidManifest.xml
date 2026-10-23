@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <!-- Android 11+ 需要声明才能查询酷狗概念版是否安装 -->
+    <queries>
+        <package android:name="com.kugou.android.lite" />
+    </queries>
+
+    <!--
+        双格式模块声明，两套都写，让新老框架都能认出来：
+
+        新框架（支持 libxposed API 100+）走现代格式：
+          META-INF/xposed/module.prop  → minApiVersion / targetApiVersion / staticScope
+          META-INF/xposed/java_init.list → com.moekoe.xposed.kugoulite.MainHook
+          META-INF/xposed/scope.list   → com.kugou.android.lite
+          模块名/描述                → android:label / android:description
+
+        老框架走旧版格式：
+          android:name="xposedmodule"     → 旧版模块标记
+          android:name="xposedminversion" → 旧版最低版本
+          android:name="xposedscope"      → @array/xposed_scope
+          assets/xposed_init              → com.moekoe.xposed.kugoulite.LegacyEntry
+
+        框架只会二选一：现代入口列表非空时就不会再读 assets/xposed_init。
+    -->
+    <application
+        android:allowBackup="true"
+        android:description="@string/xposed_description"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="@string/xposed_description" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="82" />
+        <meta-data
+            android:name="xposedscope"
+            android:resource="@array/xposed_scope" />
+
+        <!--
+            真正的界面。这里挂的是 Xposed 官方的「模块设置页」入口：
+              action  = android.intent.action.MAIN
+              category = de.robv.android.xposed.category.MODULE_SETTINGS
+            LSPosed 管理器找「打开」按钮时走的就是这条 intent（AppHelper.getSettingsIntent
+            里第一个 queryIntentActivities），命中就直接设好 class 名启动，不依赖启动器入口。
+
+            这个组件**永远不会被禁用**，所以即使桌面图标被隐藏，
+            管理器里依然能打开本模块 —— 隐藏功能不会把自己锁在门外。
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            桌面入口用 alias（唯一带 LAUNCHER 的组件）。
+            「隐藏桌面图标」= 禁用这个 alias，只影响桌面图标，
+            不影响上面 MainActivity 的模块设置页入口。
+        -->
+        <activity-alias
+            android:name=".Launcher"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- 跨进程状态共享 Provider，供 Hook 进程读写模块配置与状态 -->
+        <provider
+            android:name=".StateProvider"
+            android:authorities="com.moekoe.xposed.kugoulite.state"
+            android:exported="true" />
+
+    </application>
+
+</manifest>

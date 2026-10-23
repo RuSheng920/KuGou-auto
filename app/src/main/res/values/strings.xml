@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">酷狗概念版VIP助手</string>
+    <string name="app_subtitle">每日听歌会员 · 自动领取</string>
+    <string name="xposed_description">酷狗概念版启动时自动领取每日听歌会员，并隐藏领取弹窗（libxposed API 102）</string>
+
+    <string name="chip_loading">读取中…</string>
+    <string name="chip_enabled">已启用</string>
+    <string name="chip_disabled">已停用</string>
+    <string name="version_format">v%1$s</string>
+
+    <string name="section_features">功能开关</string>
+    <string name="title_enabled">自动领取每日会员</string>
+    <string name="desc_enabled">启动酷狗概念版时自动领取，无需手动点弹窗</string>
+    <string name="title_upgrade">自动升级概念版VIP</string>
+    <string name="desc_upgrade">领取成功后自动升级，获得更高音质</string>
+    <string name="title_hide_icon">隐藏桌面图标</string>
+    <string name="desc_hide_icon">从桌面和应用列表里藏起来，需要时再打开</string>
+
+    <string name="section_status">运行状态</string>
+    <string name="section_about">关于</string>
+    <string name="label_target">目标应用：</string>
+    <string name="status_default">暂无领取记录</string>
+    <string name="status_time_format">\n上次更新：%1$s</string>
+    <string name="state_idle">未运行</string>
+    <string name="state_success">领取成功</string>
+    <string name="state_already">今日已领取</string>
+    <string name="state_risk">账号风控</string>
+    <string name="state_error">领取失败</string>
+
+    <string name="target_ok">已安装 · com.kugou.android.lite</string>
+    <string name="target_missing">未安装酷狗概念版</string>
+
+    <string name="btn_trigger">立即领取一次</string>
+    <string name="btn_refresh">刷新状态</string>
+    <string name="trigger_no_app">未检测到酷狗概念版，请先安装</string>
+    <string name="trigger_sent">已发送触发信号，请把酷狗概念版切到前台</string>
+
+    <string name="hide_icon_title">隐藏桌面图标</string>
+    <string name="hide_icon_message">隐藏后桌面和应用列表里就找不到这个图标了，但模块功能不受影响。\n\n想恢复的话：\n1. 打开 LSPosed 管理器 → 模块 → 本模块，点右下角的圆形「打开」按钮（隐藏状态下照样能用）；\n2. 或者在电脑上执行：\n\nadb shell pm enable com.moekoe.xposed.kugoulite/com.moekoe.xposed.kugoulite.Launcher\n\n确定要隐藏吗？</string>
+    <string name="hide_icon_on">图标已隐藏。恢复命令见本页说明。</string>
+    <string name="hide_icon_off">图标已恢复显示</string>
+    <string name="hide_icon_fail">操作失败，请重试</string>
+    <string name="action_confirm">确定隐藏</string>
+    <string name="action_cancel">取消</string>
+
+    <string name="desc_info">工作原理\n\n1. Hook 酷狗概念版的 OkHttp 请求，自动捕获登录凭证\n2. 用官方接口主动领取每日听歌会员\n3. 领取弹窗在显示前就被拦截，全程无感\n4. 可在 LSPosed 管理器里查看运行日志\n\n注意\n需在 LSPosed 中把「酷狗概念版」勾进模块作用域，并关闭「Xposed API 调用保护」，否则功能不生效。\n\n本模块仅供学习交流，请遵守酷狗音乐服务条款，一切后果由使用者自行承担。</string>
+</resources>
